@@ -19,6 +19,9 @@ final class NewsletterServiceProvider extends PackageServiceProvider
             ->name('vendra-newsletter')
             ->hasTranslations()
             ->hasConfigFile('newsletter')
+            ->hasMigrations([
+                'create_newsletters_table.php'
+            ])
             ->hasRoute('web')
             ->hasViews('newsletter')
             ->hasInstallCommand(function (InstallCommand $command): void {
