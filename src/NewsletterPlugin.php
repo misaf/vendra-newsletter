@@ -9,9 +9,11 @@ use Filament\Panel;
 
 final class NewsletterPlugin implements Plugin
 {
+    public const string ID = 'vendra-newsletter';
+
     public function getId(): string
     {
-        return 'vendra-newsletter';
+        return self::ID;
     }
 
     public static function make(): static
