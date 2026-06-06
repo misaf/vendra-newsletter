@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterFactory;
 use Misaf\VendraNewsletter\Observers\NewsletterObserver;
 use Misaf\VendraTenant\Traits\BelongsToTenant;
@@ -50,10 +53,13 @@ use Spatie\Translatable\HasTranslations;
  * @method LogOptions getActivitylogOptions()
  * @method SlugOptions getSlugOptions()
  */
+#[Fillable(['name', 'description', 'slug', 'scheduled_at', 'status'])]
+#[Hidden(['tenant_id'])]
 #[ObservedBy([NewsletterObserver::class])]
 final class Newsletter extends Model
 {
     use BelongsToTenant;
+    use HasDefaultActivityLogOptions;
     /** @use HasFactory<NewsletterFactory> */
     use HasFactory;
     use HasTranslatableSlug;
@@ -63,27 +69,21 @@ final class Newsletter extends Model
 
     public array $translatable = ['name', 'description', 'slug'];
 
-    protected $casts = [
-        'id'           => 'integer',
-        'tenant_id'    => 'integer',
-        'name'         => 'array',
-        'description'  => 'array',
-        'slug'         => 'array',
-        'scheduled_at' => 'datetime',
-        'status'       => 'boolean',
-    ];
-
-    protected $fillable = [
-        'name',
-        'description',
-        'slug',
-        'scheduled_at',
-        'status',
-    ];
-
-    protected $hidden = [
-        'tenant_id',
-    ];
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'           => 'integer',
+            'tenant_id'    => 'integer',
+            'name'         => 'array',
+            'description'  => 'array',
+            'slug'         => 'array',
+            'scheduled_at' => 'datetime',
+            'status'       => 'boolean',
+        ];
+    }
 
     protected static function newFactory(): NewsletterFactory
     {
@@ -189,10 +189,5 @@ final class Newsletter extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug')
             ->preventOverwrite();
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logFillable()->logExcept(['id']);
     }
 };

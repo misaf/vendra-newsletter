@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,6 +40,7 @@ use Misaf\VendraNewsletter\Observers\NewsletterSendHistoryObserver;
  * @method BelongsToMany<NewsletterPost, $this> newsletterPosts()
  * @method HasMany<NewsletterSendHistorySubscriber, $this> newsletterSendHistorySubscribers()
  */
+#[Fillable(['newsletter_id', 'token', 'status', 'total_subscribers', 'sent_count', 'failed_count', 'started_at', 'completed_at'])]
 #[ObservedBy([NewsletterSendHistoryObserver::class])]
 final class NewsletterSendHistory extends Model
 {
@@ -48,28 +50,23 @@ final class NewsletterSendHistory extends Model
     /** @var bool $timestamps */
     public $timestamps = false;
 
-    protected $casts = [
-        'id'                  => 'integer',
-        'newsletter_id'       => 'integer',
-        'token'               => 'string',
-        'status'              => NewsletterSendHistoryStatusEnum::class,
-        'total_subscribers'   => 'integer',
-        'sent_count'          => 'integer',
-        'failed_count'        => 'integer',
-        'started_at'          => 'datetime',
-        'completed_at'        => 'datetime',
-    ];
-
-    protected $fillable = [
-        'newsletter_id',
-        'token',
-        'status',
-        'total_subscribers',
-        'sent_count',
-        'failed_count',
-        'started_at',
-        'completed_at',
-    ];
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'                  => 'integer',
+            'newsletter_id'       => 'integer',
+            'token'               => 'string',
+            'status'              => NewsletterSendHistoryStatusEnum::class,
+            'total_subscribers'   => 'integer',
+            'sent_count'          => 'integer',
+            'failed_count'        => 'integer',
+            'started_at'          => 'datetime',
+            'completed_at'        => 'datetime',
+        ];
+    }
 
     protected static function newFactory(): NewsletterSendHistoryFactory
     {

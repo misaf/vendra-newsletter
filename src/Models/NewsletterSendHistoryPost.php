@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
+ * @property int $id
  * @property int $newsletter_send_history_id
  * @property int $newsletter_post_id
  *
  * @method BelongsTo<NewsletterSendHistory, $this> newsletterSendHistory()
  * @method BelongsTo<NewsletterPost, $this> newsletterPost()
  */
+#[Fillable(['newsletter_send_history_id', 'newsletter_post_id'])]
 final class NewsletterSendHistoryPost extends Pivot
 {
     /** @var bool $incrementing */
@@ -22,16 +25,17 @@ final class NewsletterSendHistoryPost extends Pivot
     /** @var bool $timestamps */
     public $timestamps = false;
 
-    protected $casts = [
-        'id'                         => 'integer',
-        'newsletter_send_history_id' => 'integer',
-        'newsletter_post_id'         => 'integer',
-    ];
-
-    protected $fillable = [
-        'newsletter_send_history_id',
-        'newsletter_post_id',
-    ];
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'                         => 'integer',
+            'newsletter_send_history_id' => 'integer',
+            'newsletter_post_id'         => 'integer',
+        ];
+    }
 
     /**
      * @return BelongsTo<NewsletterSendHistory, $this>

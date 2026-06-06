@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterPostFactory;
 use Misaf\VendraNewsletter\Enums\NewsletterPostStatusEnum;
 use Misaf\VendraNewsletter\Observers\NewsletterPostObserver;
@@ -43,9 +45,11 @@ use Spatie\Translatable\HasTranslations;
  * @method LogOptions getActivitylogOptions()
  * @method SlugOptions getSlugOptions()
  */
+#[Fillable(['newsletter_id', 'name', 'description', 'slug', 'status'])]
 #[ObservedBy([NewsletterPostObserver::class])]
 final class NewsletterPost extends Model
 {
+    use HasDefaultActivityLogOptions;
     /** @use HasFactory<NewsletterPostFactory> */
     use HasFactory;
     use HasTranslatableSlug;
@@ -55,26 +59,24 @@ final class NewsletterPost extends Model
 
     public array $translatable = ['name', 'description', 'slug'];
 
-    protected $casts = [
-        'id'            => 'integer',
-        'newsletter_id' => 'integer',
-        'name'          => 'array',
-        'description'   => 'array',
-        'slug'          => 'array',
-        'status'        => NewsletterPostStatusEnum::class,
-    ];
-
-    protected $fillable = [
-        'newsletter_id',
-        'name',
-        'description',
-        'slug',
-        'status',
-    ];
-
     protected static function newFactory(): NewsletterPostFactory
     {
         return NewsletterPostFactory::new();
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'            => 'integer',
+            'newsletter_id' => 'integer',
+            'name'          => 'array',
+            'description'   => 'array',
+            'slug'          => 'array',
+            'status'        => NewsletterPostStatusEnum::class,
+        ];
     }
 
     /**
@@ -129,10 +131,5 @@ final class NewsletterPost extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug')
             ->preventOverwrite();
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logFillable()->logExcept(['id']);
     }
 }

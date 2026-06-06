@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,29 +35,27 @@ use Misaf\VendraNewsletter\Enums\NewsletterSendHistoryStatusEnum;
  * @method BelongsTo<NewsletterSendHistory, $this> newsletterSendHistory()
  * @method BelongsTo<NewsletterSubscriber, $this> newsletterSubscriber()
  */
+#[Fillable(['newsletter_send_history_id', 'newsletter_subscriber_id', 'status', 'sent_at', 'failed_at', 'failed_message'])]
 final class NewsletterSendHistorySubscriber extends Model
 {
     /** @use HasFactory<NewsletterSendHistorySubscriberFactory> */
     use HasFactory;
 
-    protected $casts = [
-        'id'                         => 'integer',
-        'newsletter_send_history_id' => 'integer',
-        'newsletter_subscriber_id'   => 'integer',
-        'status'                     => NewsletterSendHistoryStatusEnum::class,
-        'sent_at'                    => 'datetime',
-        'failed_at'                  => 'datetime',
-        'failed_message'             => 'string',
-    ];
-
-    protected $fillable = [
-        'newsletter_send_history_id',
-        'newsletter_subscriber_id',
-        'status',
-        'sent_at',
-        'failed_at',
-        'failed_message',
-    ];
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'                         => 'integer',
+            'newsletter_send_history_id' => 'integer',
+            'newsletter_subscriber_id'   => 'integer',
+            'status'                     => NewsletterSendHistoryStatusEnum::class,
+            'sent_at'                    => 'datetime',
+            'failed_at'                  => 'datetime',
+            'failed_message'             => 'string',
+        ];
+    }
 
     protected static function newFactory(): NewsletterSendHistorySubscriberFactory
     {

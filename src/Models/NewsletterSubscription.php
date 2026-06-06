@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,24 +22,24 @@ use Illuminate\Support\Carbon;
  * @method BelongsTo<Newsletter, $this> newsletter()
  * @method BelongsTo<NewsletterSubscriber, $this> newsletterSubscriber()
  */
+#[Fillable(['newsletter_id', 'newsletter_subscriber_id', 'subscribed_at', 'unsubscribed_at'])]
 final class NewsletterSubscription extends Pivot
 {
     /** @var bool $timestamps */
     public $timestamps = false;
 
-    protected $casts = [
-        'newsletter_id'            => 'integer',
-        'newsletter_subscriber_id' => 'integer',
-        'subscribed_at'            => 'datetime',
-        'unsubscribed_at'          => 'datetime',
-    ];
-
-    protected $fillable = [
-        'newsletter_id',
-        'newsletter_subscriber_id',
-        'subscribed_at',
-        'unsubscribed_at',
-    ];
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'newsletter_id'            => 'integer',
+            'newsletter_subscriber_id' => 'integer',
+            'subscribed_at'            => 'datetime',
+            'unsubscribed_at'          => 'datetime',
+        ];
+    }
 
     /**
      * @param Builder<NewsletterSubscription> $query
