@@ -7,6 +7,7 @@ namespace Misaf\VendraNewsletter\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,6 @@ use Misaf\VendraNewsletter\Observers\NewsletterSendHistoryObserver;
  * @property Carbon $started_at
  * @property Carbon|null $completed_at
  *
- * @method static NewsletterSendHistoryFactory newFactory()
  * @method static Builder<NewsletterSendHistorySubscriber> sending()
  * @method static Builder<NewsletterSendHistorySubscriber> sent()
  * @method static Builder<NewsletterSendHistorySubscriber> failed()
@@ -42,6 +42,7 @@ use Misaf\VendraNewsletter\Observers\NewsletterSendHistoryObserver;
  */
 #[Fillable(['newsletter_id', 'token', 'status', 'total_subscribers', 'sent_count', 'failed_count', 'started_at', 'completed_at'])]
 #[ObservedBy([NewsletterSendHistoryObserver::class])]
+#[UseFactory(NewsletterSendHistoryFactory::class)]
 final class NewsletterSendHistory extends Model
 {
     /** @use HasFactory<NewsletterSendHistoryFactory> */
@@ -66,11 +67,6 @@ final class NewsletterSendHistory extends Model
             'started_at'          => 'datetime',
             'completed_at'        => 'datetime',
         ];
-    }
-
-    protected static function newFactory(): NewsletterSendHistoryFactory
-    {
-        return NewsletterSendHistoryFactory::new();
     }
 
     /**
