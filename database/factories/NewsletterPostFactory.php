@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Misaf\VendraNewsletter\Enums\NewsletterPostStatusEnum;
 use Misaf\VendraNewsletter\Models\Newsletter;
@@ -12,13 +13,9 @@ use Misaf\VendraNewsletter\Models\NewsletterPost;
 /**
  * @extends Factory<NewsletterPost>
  */
+#[UseModel(NewsletterPost::class)]
 final class NewsletterPostFactory extends Factory
 {
-    /**
-     * @var class-string<NewsletterPost>
-     */
-    protected $model = NewsletterPost::class;
-
     /**
      * @return array<string, mixed>
      */
