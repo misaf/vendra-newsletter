@@ -6,6 +6,7 @@ namespace Misaf\VendraNewsletter\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,6 @@ use Spatie\Tags\HasTags;
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
  *
- * @method static NewsletterSubscriberFactory newFactory()
  * @method Attribute<string, string> email()
  * @method BelongsToMany<Newsletter, $this, NewsletterSubscription> newsletters()
  * @method BelongsTo<User, $this> user()
@@ -38,6 +38,7 @@ use Spatie\Tags\HasTags;
  */
 #[Fillable(['user_id', 'email'])]
 #[ObservedBy([NewsletterSubscriberObserver::class])]
+#[UseFactory(NewsletterSubscriberFactory::class)]
 final class NewsletterSubscriber extends Model
 {
     use HasDefaultActivityLogOptions;
@@ -57,11 +58,6 @@ final class NewsletterSubscriber extends Model
             'user_id' => 'integer',
             'email'   => 'string',
         ];
-    }
-
-    protected static function newFactory(): NewsletterSubscriberFactory
-    {
-        return NewsletterSubscriberFactory::new();
     }
 
     /**
