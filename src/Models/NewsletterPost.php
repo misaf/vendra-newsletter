@@ -7,6 +7,7 @@ namespace Misaf\VendraNewsletter\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +36,6 @@ use Spatie\Translatable\HasTranslations;
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
  *
- * @method static NewsletterPostFactory newFactory()
  * @method static Builder<NewsletterPost> draft()
  * @method static Builder<NewsletterPost> ready()
  * @method bool isDraft()
@@ -47,6 +47,7 @@ use Spatie\Translatable\HasTranslations;
  */
 #[Fillable(['newsletter_id', 'name', 'description', 'slug', 'status'])]
 #[ObservedBy([NewsletterPostObserver::class])]
+#[UseFactory(NewsletterPostFactory::class)]
 final class NewsletterPost extends Model
 {
     use HasDefaultActivityLogOptions;
@@ -58,11 +59,6 @@ final class NewsletterPost extends Model
     use SoftDeletes;
 
     public array $translatable = ['name', 'description', 'slug'];
-
-    protected static function newFactory(): NewsletterPostFactory
-    {
-        return NewsletterPostFactory::new();
-    }
 
     /**
      * @return array<string, string>
