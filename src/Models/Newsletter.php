@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,6 @@ use Spatie\Translatable\HasTranslations;
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
  *
- * @method static NewsletterFactory newFactory()
  * @method static Builder<Newsletter> scheduled()
  * @method static Builder<Newsletter> enabled()
  * @method static Builder<Newsletter> disabled()
@@ -56,6 +56,7 @@ use Spatie\Translatable\HasTranslations;
 #[Fillable(['name', 'description', 'slug', 'scheduled_at', 'status'])]
 #[Hidden(['tenant_id'])]
 #[ObservedBy([NewsletterObserver::class])]
+#[UseFactory(NewsletterFactory::class)]
 final class Newsletter extends Model
 {
     use BelongsToTenant;
@@ -83,11 +84,6 @@ final class Newsletter extends Model
             'scheduled_at' => 'datetime',
             'status'       => 'boolean',
         ];
-    }
-
-    protected static function newFactory(): NewsletterFactory
-    {
-        return NewsletterFactory::new();
     }
 
     /**
