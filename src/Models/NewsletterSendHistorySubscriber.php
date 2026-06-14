@@ -6,6 +6,7 @@ namespace Misaf\VendraNewsletter\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,6 @@ use Misaf\VendraNewsletter\Enums\NewsletterSendHistoryStatusEnum;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @method static NewsletterSendHistorySubscriberFactory newFactory()
  * @method static Builder<NewsletterSendHistorySubscriber> sending()
  * @method static Builder<NewsletterSendHistorySubscriber> sent()
  * @method static Builder<NewsletterSendHistorySubscriber> failed()
@@ -36,6 +36,7 @@ use Misaf\VendraNewsletter\Enums\NewsletterSendHistoryStatusEnum;
  * @method BelongsTo<NewsletterSubscriber, $this> newsletterSubscriber()
  */
 #[Fillable(['newsletter_send_history_id', 'newsletter_subscriber_id', 'status', 'sent_at', 'failed_at', 'failed_message'])]
+#[UseFactory(NewsletterSendHistorySubscriberFactory::class)]
 final class NewsletterSendHistorySubscriber extends Model
 {
     /** @use HasFactory<NewsletterSendHistorySubscriberFactory> */
@@ -55,11 +56,6 @@ final class NewsletterSendHistorySubscriber extends Model
             'failed_at'                  => 'datetime',
             'failed_message'             => 'string',
         ];
-    }
-
-    protected static function newFactory(): NewsletterSendHistorySubscriberFactory
-    {
-        return NewsletterSendHistorySubscriberFactory::new();
     }
 
     /**
