@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Misaf\VendraNewsletter\Enums\NewsletterSendHistoryStatusEnum;
 use Misaf\VendraNewsletter\Models\Newsletter;
@@ -12,13 +13,9 @@ use Misaf\VendraNewsletter\Models\NewsletterSendHistory;
 /**
  * @extends Factory<NewsletterSendHistory>
  */
+#[UseModel(NewsletterSendHistory::class)]
 final class NewsletterSendHistoryFactory extends Factory
 {
-    /**
-     * @var class-string<NewsletterSendHistory>
-     */
-    protected $model = NewsletterSendHistory::class;
-
     /**
      * @return array<string, mixed>
      */
