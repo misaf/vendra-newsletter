@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 use Misaf\VendraUser\Models\User;
@@ -11,13 +12,9 @@ use Misaf\VendraUser\Models\User;
 /**
  * @extends Factory<NewsletterSubscriber>
  */
+#[UseModel(NewsletterSubscriber::class)]
 final class NewsletterSubscriberFactory extends Factory
 {
-    /**
-     * @var class-string<NewsletterSubscriber>
-     */
-    protected $model = NewsletterSubscriber::class;
-
     /**
      * @return array<string, mixed>
      */
