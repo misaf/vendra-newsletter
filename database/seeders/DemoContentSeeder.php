@@ -13,11 +13,33 @@ use Misaf\VendraNewsletter\Database\Factories\NewsletterSubscriberFactory;
 use Misaf\VendraNewsletter\Enums\NewsletterPostStatusEnum;
 use Misaf\VendraNewsletter\Models\Newsletter;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
-use Misaf\VendraSupport\Database\Seeders\TenantDemoContentSeeder;
+use Misaf\VendraSupport\Database\Seeders\DemoContentSeeder as BaseDemoContentSeeder;
+use Misaf\VendraTenant\Concerns\RequiresCurrentTenant;
 use Misaf\VendraTenant\Models\Tenant;
 
-final class DemoContentSeeder extends TenantDemoContentSeeder
+final class DemoContentSeeder extends BaseDemoContentSeeder
 {
+    use RequiresCurrentTenant;
+
+    protected function seedFactories(): void
+    {
+        $tenant = $this->currentTenant();
+
+        $this->seedFactoryRecords($tenant);
+    }
+
+    /**
+     * @param list<array<string, mixed>> $records
+     */
+    protected function seedFixtures(array $records): void
+    {
+        $tenant = $this->currentTenant();
+
+        foreach ($records as $record) {
+            $this->seedFixtureRecord($tenant, $record);
+        }
+    }
+
     protected function seedFactoryRecords(Tenant $tenant): void
     {
         $newsletters = NewsletterFactory::new()
@@ -36,18 +58,18 @@ final class DemoContentSeeder extends TenantDemoContentSeeder
                 ->count(2)
                 ->create();
 
-            $subscribers = NewsletterSubscriberFactory::new()
+            $newsletterSubscribers = NewsletterSubscriberFactory::new()
                 ->withoutUser()
                 ->count(3)
                 ->create();
 
-            if ( ! $subscribers instanceof Collection) {
-                $subscribers = new Collection([$subscribers]);
+            if ( ! $newsletterSubscribers instanceof Collection) {
+                $newsletterSubscribers = new Collection([$newsletterSubscribers]);
             }
 
             $newsletter->newsletterSubscribers()->syncWithoutDetaching(
-                $subscribers->mapWithKeys(fn(NewsletterSubscriber $subscriber): array => [
-                    $subscriber->id => ['subscribed_at' => now()],
+                $newsletterSubscribers->mapWithKeys(fn(NewsletterSubscriber $newsletterSubscriber): array => [
+                    $newsletterSubscriber->id => ['subscribed_at' => now()],
                 ])->all(),
             );
         });
@@ -87,12 +109,12 @@ final class DemoContentSeeder extends TenantDemoContentSeeder
         $newsletter->tenant_id = $tenant->id;
         $newsletter->save();
 
-        foreach ($data['posts'] as $postRecord) {
-            $this->handleNewsletterPostFixtureRecord($newsletter, $postRecord);
+        foreach ($data['posts'] as $newsletterPostRecord) {
+            $this->handleNewsletterPostFixtureRecord($newsletter, $newsletterPostRecord);
         }
 
-        foreach ($data['subscribers'] as $subscriberRecord) {
-            $this->handleNewsletterSubscriberFixtureRecord($newsletter, $subscriberRecord);
+        foreach ($data['subscribers'] as $newsletterSubscriberRecord) {
+            $this->handleNewsletterSubscriberFixtureRecord($newsletter, $newsletterSubscriberRecord);
         }
     }
 
@@ -102,29 +124,31 @@ final class DemoContentSeeder extends TenantDemoContentSeeder
      *     description: non-empty-array<string, string>,
      *     slug: non-empty-array<string, string>,
      *     status: string
-     * } $postRecord
+     * } $newsletterPostRecord
      */
-    private function handleNewsletterPostFixtureRecord(Newsletter $newsletter, array $postRecord): void
+    private function handleNewsletterPostFixtureRecord(Newsletter $newsletter, array $newsletterPostRecord): void
     {
         $newsletter->newsletterPosts()->create([
-            'name'        => $postRecord['name'],
-            'description' => $postRecord['description'],
-            'slug'        => $postRecord['slug'],
-            'status'      => NewsletterPostStatusEnum::from($postRecord['status']),
+            'name'        => $newsletterPostRecord['name'],
+            'description' => $newsletterPostRecord['description'],
+            'slug'        => $newsletterPostRecord['slug'],
+            'status'      => NewsletterPostStatusEnum::from($newsletterPostRecord['status']),
         ]);
     }
 
     /**
-     * @param array{email: string} $subscriberRecord
+     * @param array{
+     *     email: string
+     * } $newsletterSubscriberRecord
      */
-    private function handleNewsletterSubscriberFixtureRecord(Newsletter $newsletter, array $subscriberRecord): void
+    private function handleNewsletterSubscriberFixtureRecord(Newsletter $newsletter, array $newsletterSubscriberRecord): void
     {
-        $subscriber = NewsletterSubscriber::query()->firstOrCreate([
-            'email' => $subscriberRecord['email'],
+        $newsletterSubscriber = NewsletterSubscriber::query()->firstOrCreate([
+            'email' => $newsletterSubscriberRecord['email'],
         ]);
 
         $newsletter->newsletterSubscribers()->syncWithoutDetaching([
-            $subscriber->id => ['subscribed_at' => now()],
+            $newsletterSubscriber->id => ['subscribed_at' => now()],
         ]);
     }
 
@@ -188,4 +212,5 @@ final class DemoContentSeeder extends TenantDemoContentSeeder
 
         return $validated;
     }
+
 }
