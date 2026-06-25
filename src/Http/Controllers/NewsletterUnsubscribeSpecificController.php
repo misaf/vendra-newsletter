@@ -6,10 +6,10 @@ namespace Misaf\VendraNewsletter\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-use Misaf\VendraMultilang\Facades\LanguageService;
 use Misaf\VendraNewsletter\Actions\NewsletterSubscriber\UnsubscribeFromNewsletterAction;
 use Misaf\VendraNewsletter\Http\Requests\UnsubscribeSpecificNewsletterRequest;
 use Misaf\VendraNewsletter\Models\Newsletter;
+use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 
 final class NewsletterUnsubscribeSpecificController
 {
@@ -24,12 +24,17 @@ final class NewsletterUnsubscribeSpecificController
 
     public function __invoke(UnsubscribeSpecificNewsletterRequest $request): Response
     {
-        $email = $request->validated('email');
-        $token = $request->validated('token');
-        $newsletterSlug = $request->validated('newsletter_slug');
+        $email = $request->string('email')->toString();
+        $token = $request->string('token')->toString();
+        $newsletterSlug = $request->string('newsletter_slug')->toString();
 
         if ( ! $this->isValidToken($email, $token)) {
             return $this->errorResponse(self::ERROR_INVALID_TOKEN, 400);
+        }
+
+        $subscriber = NewsletterSubscriber::where('email', $email)->first();
+        if ( ! $subscriber) {
+            return $this->errorResponse(self::ERROR_SUBSCRIBER_NOT_FOUND, 404);
         }
 
         $newsletter = Newsletter::whereJsonContainsLocales('slug', $this->getAvailableLocales(), $newsletterSlug)->first();
@@ -37,7 +42,7 @@ final class NewsletterUnsubscribeSpecificController
             return $this->errorResponse(self::ERROR_NEWSLETTER_NOT_FOUND, 404);
         }
 
-        $success = $this->action->execute($email, $newsletter);
+        $success = $this->action->execute($subscriber, $newsletter);
 
         if ( ! $success) {
             return $this->errorResponse(self::ERROR_SUBSCRIBER_NOT_FOUND, 404);
@@ -71,6 +76,9 @@ final class NewsletterUnsubscribeSpecificController
      */
     private function getAvailableLocales(): array
     {
-        return LanguageService::getAvailableLocales();
+        return array_values(array_unique(array_filter([
+            app()->getLocale(),
+            Config::string('app.fallback_locale', 'en'),
+        ])));
     }
 }

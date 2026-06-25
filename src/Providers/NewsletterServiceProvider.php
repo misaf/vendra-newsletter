@@ -6,6 +6,10 @@ namespace Misaf\VendraNewsletter\Providers;
 
 use Filament\Panel;
 use Illuminate\Foundation\Console\AboutCommand;
+use Misaf\VendraNewsletter\Console\Commands\Newsletter\SendCommand as NewsletterSendCommand;
+use Misaf\VendraNewsletter\Console\Commands\NewsletterPost\SendCommand as NewsletterPostSendCommand;
+use Misaf\VendraNewsletter\Console\Commands\SendScheduledNewslettersCommand;
+use Misaf\VendraNewsletter\Console\Commands\SyncSubscribersWithUsersCommand;
 use Misaf\VendraNewsletter\NewsletterPlugin;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -20,10 +24,16 @@ final class NewsletterServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             ->hasConfigFile('newsletter')
             ->hasMigrations([
-                'create_newsletters_table.php'
+                'create_newsletters_table'
             ])
             ->hasRoute('web')
             ->hasViews('newsletter')
+            ->hasCommands(
+                SendScheduledNewslettersCommand::class,
+                SyncSubscribersWithUsersCommand::class,
+                NewsletterSendCommand::class,
+                NewsletterPostSendCommand::class,
+            )
             ->hasInstallCommand(function (InstallCommand $command): void {
                 $command->askToStarRepoOnGitHub('misaf/vendra-newsletter');
             });

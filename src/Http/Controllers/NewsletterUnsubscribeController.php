@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Misaf\VendraNewsletter\Actions\NewsletterSubscriber\UnsubscribeFromAllAction;
 use Misaf\VendraNewsletter\Http\Requests\UnsubscribeNewsletterRequest;
+use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 
 final class NewsletterUnsubscribeController
 {
@@ -21,14 +22,19 @@ final class NewsletterUnsubscribeController
 
     public function __invoke(UnsubscribeNewsletterRequest $request): Response
     {
-        $email = $request->validated('email');
-        $token = $request->validated('token');
+        $email = $request->string('email')->toString();
+        $token = $request->string('token')->toString();
 
         if ( ! $this->isValidToken($email, $token)) {
             return $this->errorResponse(self::ERROR_INVALID_TOKEN, 400);
         }
 
-        $success = $this->action->execute($email);
+        $subscriber = NewsletterSubscriber::where('email', $email)->first();
+        if ( ! $subscriber) {
+            return $this->errorResponse(self::ERROR_SUBSCRIBER_NOT_FOUND, 404);
+        }
+
+        $success = $this->action->execute($subscriber);
 
         if ( ! $success) {
             return $this->errorResponse(self::ERROR_SUBSCRIBER_NOT_FOUND, 404);
