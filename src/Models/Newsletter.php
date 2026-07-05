@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
 use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterFactory;
 use Misaf\VendraNewsletter\Observers\NewsletterObserver;
-use Misaf\VendraTenant\Traits\BelongsToTenant;
+use Misaf\VendraSupport\Traits\BelongsToTenant;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasTranslatableSlug;

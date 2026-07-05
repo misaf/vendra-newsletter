@@ -11,8 +11,8 @@ use Misaf\VendraNewsletter\Enums\NewsletterSendHistoryPostPolicyEnum;
 use Misaf\VendraNewsletter\Enums\NewsletterSendHistorySubscriberPolicyEnum;
 use Misaf\VendraNewsletter\Enums\NewsletterSubscriberPolicyEnum;
 use Misaf\VendraNewsletter\NewsletterPlugin;
+use Misaf\VendraSupport\Concerns\RequiresCurrentTenant;
 use Misaf\VendraSupport\Database\Seeders\PermissionPolicySeeder as BasePermissionPolicySeeder;
-use Misaf\VendraTenant\Concerns\RequiresCurrentTenant;
 
 final class PermissionPolicySeeder extends BasePermissionPolicySeeder
 {

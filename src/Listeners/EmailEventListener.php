@@ -13,7 +13,7 @@ use Misaf\EmailWebhooks\Events\EmailComplainedEvent;
 use Misaf\EmailWebhooks\Events\EmailSentEvent;
 use Misaf\EmailWebhooks\Services\EmailWebhookService;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
-use Misaf\VendraTenant\Scopes\TenantScope;
+use Misaf\VendraSupport\Scopes\TenantScope;
 use Throwable;
 
 final class EmailEventListener implements ShouldQueue

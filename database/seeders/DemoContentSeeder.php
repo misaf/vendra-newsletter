@@ -13,8 +13,8 @@ use Misaf\VendraNewsletter\Database\Factories\NewsletterSubscriberFactory;
 use Misaf\VendraNewsletter\Enums\NewsletterPostStatusEnum;
 use Misaf\VendraNewsletter\Models\Newsletter;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
+use Misaf\VendraSupport\Concerns\RequiresCurrentTenant;
 use Misaf\VendraSupport\Database\Seeders\DemoContentSeeder as BaseDemoContentSeeder;
-use Misaf\VendraTenant\Concerns\RequiresCurrentTenant;
 use Misaf\VendraTenant\Models\Tenant;
 
 final class DemoContentSeeder extends BaseDemoContentSeeder
