@@ -21,7 +21,7 @@ final class NewsletterSendHistorySubscriberForm
                     ->maxLength(255)
                     ->autofocus()
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.email"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.email'))
                     ->rules(['bail', 'email:rfc,strict,spoof,filter,filter_unicode', new EmailValidation(app()->isProduction())])
                     ->extraAttributes(['dir' => 'ltr'])
                     ->label(__('vendra-newsletter::attributes.email'))

@@ -50,14 +50,14 @@ final class NewsletterForm
                     ),
 
                 RichEditor::make('description')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.description"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.description'))
                     ->columnSpanFull()
                     ->helperText(__('vendra-newsletter::attributes.description_helper_text'))
                     ->label(__('vendra-newsletter::attributes.description')),
 
                 DateTimePicker::make('scheduled_at')
                     ->afterOrEqual(Carbon::now()->addMinutes(30)->toDateTimeString())
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.scheduled_at"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.scheduled_at'))
                     ->columnSpanFull()
                     ->displayFormat('Y-m-d H:i')
                     ->helperText(__('vendra-newsletter::attributes.scheduled_at_helper_text'))
@@ -70,7 +70,7 @@ final class NewsletterForm
                     ->unless(app()->isLocale('fa'), fn(DateTimePicker $column) => $column->jalali()),
 
                 Toggle::make('status')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.status"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.status'))
                     ->columnSpanFull()
                     ->default(false)
                     ->label(__('vendra-newsletter::attributes.status'))

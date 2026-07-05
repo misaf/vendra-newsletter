@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 #[Fillable(['newsletter_send_history_id', 'newsletter_post_id'])]
 final class NewsletterSendHistoryPost extends Pivot
 {
-    /** @var bool $incrementing */
+    /** @var bool */
     public $incrementing = true;
 
-    /** @var bool $timestamps */
+    /** @var bool */
     public $timestamps = false;
 
     /**

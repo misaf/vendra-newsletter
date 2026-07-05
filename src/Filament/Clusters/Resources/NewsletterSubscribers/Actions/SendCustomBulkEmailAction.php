@@ -59,8 +59,7 @@ final class SendCustomBulkEmailAction extends Action
                     ]),
             ])
             ->action(
-                fn(array $data)
-                => SendCustomBulkAdMailerJob::dispatch(
+                fn(array $data) => SendCustomBulkAdMailerJob::dispatch(
                     subject: $data['subject'],
                     description: $data['description'],
                     count: $data['count'],

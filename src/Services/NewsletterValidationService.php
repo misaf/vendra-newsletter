@@ -17,7 +17,8 @@ final class NewsletterValidationService
     /**
      * Validate newsletters
      *
-     * @param Collection<int, Newsletter> $newsletters
+     * @param  Collection<int, Newsletter>  $newsletters
+     *
      * @throws ValidationException
      */
     public function validateNewsletters(Collection $newsletters): void
@@ -32,6 +33,7 @@ final class NewsletterValidationService
                     function ($attribute, $value, $fail): void {
                         if ( ! $value instanceof Newsletter) {
                             $fail('Each item must be a Newsletter instance.');
+
                             return;
                         }
 
@@ -56,7 +58,8 @@ final class NewsletterValidationService
     /**
      * Validate newsletter subscribers
      *
-     * @param Collection<int, NewsletterSubscriber> $newsletterSubscribers
+     * @param  Collection<int, NewsletterSubscriber>  $newsletterSubscribers
+     *
      * @throws ValidationException
      */
     public function validateNewsletterSubscribers(Collection $newsletterSubscribers): void
@@ -68,6 +71,7 @@ final class NewsletterValidationService
                 'newsletter_subscribers.*' => ['required', function ($attribute, $value, $fail): void {
                     if ( ! $value instanceof NewsletterSubscriber) {
                         $fail('Each item must be a NewsletterSubscriber instance.');
+
                         return;
                     }
                 }],
@@ -87,7 +91,8 @@ final class NewsletterValidationService
     /**
      * Validate newsletter posts
      *
-     * @param Collection<int, NewsletterPost> $newsletterPosts
+     * @param  Collection<int, NewsletterPost>  $newsletterPosts
+     *
      * @throws ValidationException
      */
     public function validateNewsletterPosts(Collection $newsletterPosts): void
@@ -101,6 +106,7 @@ final class NewsletterValidationService
                     function ($attribute, $value, $fail): void {
                         if ( ! $value instanceof NewsletterPost) {
                             $fail('Each item must be a NewsletterPost instance.');
+
                             return;
                         }
 
@@ -125,7 +131,8 @@ final class NewsletterValidationService
     /**
      * Validate send histories are valid and not already sending
      *
-     * @param Collection<int, NewsletterSendHistory> $sendHistories
+     * @param  Collection<int, NewsletterSendHistory>  $sendHistories
+     *
      * @throws ValidationException
      */
     public function validateSendHistories(Collection $sendHistories): void
@@ -140,6 +147,7 @@ final class NewsletterValidationService
                     function ($attribute, $value, $fail): void {
                         if ( ! $value instanceof NewsletterSendHistory) {
                             $fail('Each item must be a NewsletterSendHistory instance.');
+
                             return;
                         }
 

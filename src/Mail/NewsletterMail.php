@@ -37,10 +37,10 @@ final class NewsletterMail extends Mailable
         return new Content(
             markdown: 'newsletter::mail.newsletter',
             with: [
-                'newsletter'              => $this->newsletter,
-                'posts'                   => $this->posts,
-                'unsubscribeSpecificUrl'  => $this->generateUnsubscribeSpecificUrl(),
-                'unsubscribeAllUrl'       => $this->generateUnsubscribeAllUrl(),
+                'newsletter'             => $this->newsletter,
+                'posts'                  => $this->posts,
+                'unsubscribeSpecificUrl' => $this->generateUnsubscribeSpecificUrl(),
+                'unsubscribeAllUrl'      => $this->generateUnsubscribeAllUrl(),
             ],
         );
     }

@@ -42,8 +42,10 @@ use Spatie\Tags\HasTags;
 final class NewsletterSubscriber extends Model
 {
     use HasDefaultActivityLogOptions;
+
     /** @use HasFactory<NewsletterSubscriberFactory> */
     use HasFactory;
+
     use HasTags;
     use LogsActivity;
     use SoftDeletes;
@@ -111,5 +113,4 @@ final class NewsletterSubscriber extends Model
     {
         return $this->hasMany(NewsletterSendHistorySubscriber::class);
     }
-
 }

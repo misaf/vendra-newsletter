@@ -25,6 +25,7 @@ final class SyncSubscribersWithUsersCommand extends Command implements PromptsFo
     {
         if (app()->isDownForMaintenance()) {
             $this->warn('Application is in maintenance mode. Command aborted.');
+
             return self::FAILURE;
         }
 
@@ -33,6 +34,7 @@ final class SyncSubscribersWithUsersCommand extends Command implements PromptsFo
 
         if ($chunk < 1 || $chunk > 1000) {
             $this->error('Chunk size must be between 1 and 1000.');
+
             return self::FAILURE;
         }
 
@@ -55,10 +57,11 @@ final class SyncSubscribersWithUsersCommand extends Command implements PromptsFo
         } catch (Exception $e) {
             logger()->error('newsletter:sync-user-ids failed', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
 
             $this->error("Sync failed: {$e->getMessage()}");
+
             return self::FAILURE;
         }
     }

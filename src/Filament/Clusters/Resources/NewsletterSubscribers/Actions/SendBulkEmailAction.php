@@ -40,8 +40,7 @@ final class SendBulkEmailAction extends BulkAction
             ])
             ->action(function (array $data, Collection $records): void {
                 $records->each(
-                    fn(NewsletterSubscriber $record)
-                    => SendAdMailerJob::dispatchAfterResponse(
+                    fn(NewsletterSubscriber $record) => SendAdMailerJob::dispatchAfterResponse(
                         email: $record->email,
                         subject: $data['subject'],
                         description: $data['description'],

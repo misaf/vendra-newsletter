@@ -13,6 +13,7 @@ use Misaf\VendraNewsletter\Enums\NewsletterStatusEnum;
 final class NewsletterStatusReadyRule implements DataAwareRule, ValidationRule
 {
     private array $data = [];
+
     private const ALLOWED_STATUSES = [
         // Only these statuses are allowed to be selected by the user
         // when creating or editing a newsletter via the form.
@@ -35,10 +36,7 @@ final class NewsletterStatusReadyRule implements DataAwareRule, ValidationRule
     }
 
     /**
-     * @param string $attribute
-     * @param mixed $value
-     * @param Closure(string, ?string=):PotentiallyTranslatedString $fail
-     * @return void
+     * @param  Closure(string, ?string=):PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -47,11 +45,13 @@ final class NewsletterStatusReadyRule implements DataAwareRule, ValidationRule
 
         if ($isCreate && $value !== NewsletterStatusEnum::DRAFT->value) {
             $fail(__('vendra-newsletter::validation.status.only_draft_allowed_on_create'));
+
             return;
         }
 
         if ( ! in_array($value, self::ALLOWED_STATUSES, true)) {
             $fail(__('vendra-newsletter::validation.status.invalid'));
+
             return;
         }
 

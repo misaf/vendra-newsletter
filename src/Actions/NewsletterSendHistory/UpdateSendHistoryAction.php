@@ -12,10 +12,6 @@ final class UpdateSendHistoryAction
 {
     /**
      * Update newsletter send history with batch completion results
-     *
-     * @param NewsletterSendHistory $sendHistory
-     * @param array $batch
-     * @return NewsletterSendHistory
      */
     public function execute(NewsletterSendHistory $sendHistory, array $batch): NewsletterSendHistory
     {

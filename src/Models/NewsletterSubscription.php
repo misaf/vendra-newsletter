@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
 #[Fillable(['newsletter_id', 'newsletter_subscriber_id', 'subscribed_at', 'unsubscribed_at'])]
 final class NewsletterSubscription extends Pivot
 {
-    /** @var bool $timestamps */
+    /** @var bool */
     public $timestamps = false;
 
     /**
@@ -42,7 +42,7 @@ final class NewsletterSubscription extends Pivot
     }
 
     /**
-     * @param Builder<NewsletterSubscription> $query
+     * @param  Builder<NewsletterSubscription>  $query
      * @return Builder<NewsletterSubscription>
      */
     #[Scope]
@@ -52,7 +52,7 @@ final class NewsletterSubscription extends Pivot
     }
 
     /**
-     * @param Builder<NewsletterSubscription> $query
+     * @param  Builder<NewsletterSubscription>  $query
      * @return Builder<NewsletterSubscription>
      */
     #[Scope]

@@ -49,10 +49,6 @@ final class SendCustomBulkAdMailerJob implements ShouldQueue
         $this->processChunk($filteredSubscribers);
     }
 
-    /**
-     * @param Collection $subscribers
-     * @return Collection
-     */
     private function filterSubscribers(Collection $subscribers): Collection
     {
         if (null !== $this->fromRecord && null === $this->toRecord && null === $this->count) {
@@ -93,10 +89,6 @@ final class SendCustomBulkAdMailerJob implements ShouldQueue
         return $subscribers->values();
     }
 
-    /**
-     * @param Collection $newsletterSubscribers
-     * @return void
-     */
     private function processChunk(Collection $newsletterSubscribers): void
     {
         $jobs = $newsletterSubscribers->map(function ($subscriber): SendAdMailerJob {
@@ -110,10 +102,6 @@ final class SendCustomBulkAdMailerJob implements ShouldQueue
         $this->createBatch($jobs->toArray());
     }
 
-    /**
-     * @param array $jobs
-     * @return void
-     */
     private function createBatch(array $jobs): void
     {
         Bus::batch($jobs)

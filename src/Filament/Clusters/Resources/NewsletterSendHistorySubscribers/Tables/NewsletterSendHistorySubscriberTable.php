@@ -87,7 +87,7 @@ final class NewsletterSendHistorySubscriberTable
                     ->label(__('vendra-newsletter::attributes.failed_at'))
                     ->sinceTooltip()
                     ->sortable()
-                    ->unless(app()->isLocale('fa'), fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i:s', latinNumbers: true), fn(TextColumn $column) => $column->dateTime('Y-m-d H:i:s'))
+                    ->unless(app()->isLocale('fa'), fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i:s', latinNumbers: true), fn(TextColumn $column) => $column->dateTime('Y-m-d H:i:s')),
 
                 // TextColumn::make('status')
                 //     ->alignCenter()

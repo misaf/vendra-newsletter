@@ -86,9 +86,6 @@ final class EditNewsletter extends EditRecord
         ];
     }
 
-    /**
-     * @return void
-     */
     protected function afterSave(): void
     {
         // $newsletter = $this->record;
@@ -100,10 +97,6 @@ final class EditNewsletter extends EditRecord
         // $this->sendNewsletter($newsletter);
     }
 
-    /**
-     * @param Newsletter $newsletter
-     * @return bool
-     */
     private function shouldSendNewsletter(Newsletter $newsletter): bool
     {
         // if ( ! $newsletter->wasChanged('status')) {
@@ -119,10 +112,6 @@ final class EditNewsletter extends EditRecord
         return true;
     }
 
-    /**
-     * @param Newsletter $newsletter
-     * @return void
-     */
     private function sendNewsletter(Newsletter $newsletter): void
     {
         // try {

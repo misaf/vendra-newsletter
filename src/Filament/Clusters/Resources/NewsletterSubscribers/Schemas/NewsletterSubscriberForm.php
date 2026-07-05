@@ -17,7 +17,7 @@ final class NewsletterSubscriberForm
         return $schema
             ->components([
                 TextInput::make('email')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.email"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.email'))
                     ->autofocus()
                     ->columnSpan(['lg' => 2])
                     ->email()

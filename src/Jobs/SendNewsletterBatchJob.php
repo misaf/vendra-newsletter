@@ -14,7 +14,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Config;
-
 use Misaf\VendraNewsletter\Actions\NewsletterSendHistory\UpdateSendHistoryAction;
 use Misaf\VendraNewsletter\Models\NewsletterSendHistory;
 use Throwable;
@@ -27,8 +26,11 @@ final class SendNewsletterBatchJob implements ShouldQueue
     use SerializesModels;
 
     public int $timeout;
+
     public int $tries;
+
     public int $chunkSize;
+
     public string $queueName;
 
     public function __construct(

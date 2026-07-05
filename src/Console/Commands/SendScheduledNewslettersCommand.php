@@ -30,6 +30,7 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
 
         if (app()->isDownForMaintenance() && ! $isDryRun) {
             $this->warn('Application is in maintenance mode. Command aborted.');
+
             return self::FAILURE;
         }
 
@@ -44,6 +45,7 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
 
             if ($scheduledNewsletters->isEmpty()) {
                 $this->info('No scheduled newsletters to send.');
+
                 return self::SUCCESS;
             }
 
@@ -52,6 +54,7 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
             foreach ($scheduledNewsletters as $newsletter) {
                 if ( ! $this->validateNewsletterStatus($newsletter)) {
                     $this->warn("Skipping newsletter {$newsletter->name} - not ready to be sent.");
+
                     continue;
                 }
 
@@ -63,7 +66,7 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
             $this->error('newsletter:send-scheduled failed', [
                 'command' => 'newsletter:send-scheduled',
                 'error'   => $e->getMessage(),
-                'trace'   => $e->getTraceAsString()
+                'trace'   => $e->getTraceAsString(),
             ]);
 
             return self::FAILURE;
@@ -88,10 +91,6 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
 
     /**
      * Process a single scheduled newsletter
-     *
-     * @param Newsletter $newsletter
-     * @param bool $isDryRun
-     * @return void
      */
     private function processScheduledNewsletter(Newsletter $newsletter, bool $isDryRun): void
     {
@@ -112,7 +111,7 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
                 'newsletter_id'   => $newsletter->id,
                 'newsletter_name' => $newsletter->name,
                 'error'           => $e->getMessage(),
-                'trace'           => $e->getTraceAsString()
+                'trace'           => $e->getTraceAsString(),
             ]);
 
             $this->error("Failed to queue newsletter {$newsletter->name}: {$e->getMessage()}");
@@ -121,17 +120,15 @@ final class SendScheduledNewslettersCommand extends Command implements PromptsFo
 
     /**
      * Validate newsletter status before sending
-     *
-     * @param Newsletter $newsletter
-     * @return bool
      */
     private function validateNewsletterStatus(Newsletter $newsletter): bool
     {
         $newsletterService = app(NewsletterService::class);
 
         if ( ! $newsletterService->isReady($newsletter)) {
-            $this->error("Newsletter is not ready to be sent.");
-            $this->info("Newsletter must have posts with READY status to be sent.");
+            $this->error('Newsletter is not ready to be sent.');
+            $this->info('Newsletter must have posts with READY status to be sent.');
+
             return false;
         }
 

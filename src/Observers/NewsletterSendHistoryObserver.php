@@ -18,4 +18,4 @@ final class NewsletterSendHistoryObserver implements ShouldHandleEventsAfterComm
         // Send status is tracked through send histories
         // No action needed here
     }
-};
+}

@@ -51,8 +51,10 @@ use Spatie\Translatable\HasTranslations;
 final class NewsletterPost extends Model
 {
     use HasDefaultActivityLogOptions;
+
     /** @use HasFactory<NewsletterPostFactory> */
     use HasFactory;
+
     use HasTranslatableSlug;
     use HasTranslations;
     use LogsActivity;
@@ -76,7 +78,7 @@ final class NewsletterPost extends Model
     }
 
     /**
-     * @param Builder<NewsletterPost> $query
+     * @param  Builder<NewsletterPost>  $query
      * @return Builder<NewsletterPost>
      */
     #[Scope]
@@ -86,7 +88,7 @@ final class NewsletterPost extends Model
     }
 
     /**
-     * @param Builder<NewsletterPost> $query
+     * @param  Builder<NewsletterPost>  $query
      * @return Builder<NewsletterPost>
      */
     #[Scope]

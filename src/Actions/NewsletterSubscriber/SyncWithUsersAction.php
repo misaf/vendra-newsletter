@@ -22,7 +22,6 @@ final class SyncWithUsersAction
     /**
      * Sync newsletter subscribers with users
      *
-     * @param Newsletter $newsletter
      * @return array<string, int>
      */
     public function execute(Newsletter $newsletter): array

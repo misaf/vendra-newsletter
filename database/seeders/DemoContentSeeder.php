@@ -29,7 +29,7 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
     }
 
     /**
-     * @param list<array<string, mixed>> $records
+     * @param  list<array<string, mixed>>  $records
      */
     protected function seedFixtures(array $records): void
     {
@@ -153,8 +153,7 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
     }
 
     /**
-     * @param array<string, mixed> $record
-     *
+     * @param  array<string, mixed>  $record
      * @return array{
      *     name: non-empty-array<string, string>,
      *     description: non-empty-array<string, string>,
@@ -212,5 +211,4 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
 
         return $validated;
     }
-
 }

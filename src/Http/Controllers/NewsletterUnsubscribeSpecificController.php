@@ -14,8 +14,11 @@ use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 final class NewsletterUnsubscribeSpecificController
 {
     private const ERROR_INVALID_TOKEN = 'Invalid unsubscribe token.';
+
     private const ERROR_SUBSCRIBER_NOT_FOUND = 'Subscriber not found.';
+
     private const ERROR_NEWSLETTER_NOT_FOUND = 'Newsletter not found.';
+
     private const SUCCESS_MESSAGE = "You've been successfully unsubscribed from this newsletter.";
 
     public function __construct(

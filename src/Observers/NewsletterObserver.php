@@ -40,4 +40,4 @@ final class NewsletterObserver implements ShouldHandleEventsAfterCommit
             $this->subscriberService
         );
     }
-};
+}

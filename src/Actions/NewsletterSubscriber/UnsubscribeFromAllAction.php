@@ -19,6 +19,7 @@ final class UnsubscribeFromAllAction
 
         if ($detached > 0) {
             $this->subscriberService->clearCache();
+
             return true;
         }
 

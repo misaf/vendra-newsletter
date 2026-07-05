@@ -24,7 +24,7 @@ final class NewsletterServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             ->hasConfigFile('newsletter')
             ->hasMigrations([
-                'create_newsletters_table'
+                'create_newsletters_table',
             ])
             ->hasRoute('web')
             ->hasViews('newsletter')

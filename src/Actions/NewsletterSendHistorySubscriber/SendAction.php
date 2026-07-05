@@ -14,7 +14,7 @@ use Misaf\VendraNewsletter\ValueObjects\NewsletterSendHistoryContext;
 final class SendAction extends AbstractSendAction
 {
     /**
-     * @param Collection<int, NewsletterSendHistorySubscriber> $entities
+     * @param  Collection<int, NewsletterSendHistorySubscriber>  $entities
      */
     protected function buildContext(Collection $entities, bool $isDryRun): NewsletterSendContext
     {
@@ -22,7 +22,7 @@ final class SendAction extends AbstractSendAction
     }
 
     /**
-     * @param Collection<int, NewsletterSendHistorySubscriber> $entities
+     * @param  Collection<int, NewsletterSendHistorySubscriber>  $entities
      */
     protected function dispatch(NewsletterSendContext $context, Collection $entities): void
     {

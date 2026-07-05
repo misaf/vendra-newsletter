@@ -36,7 +36,6 @@ final class NewsletterSendHistoryPostService
     /**
      * Get base query for newsletter send history posts
      *
-     * @param Newsletter|null $newsletter
      * @return Builder<NewsletterSendHistoryPost>
      */
     private function getBaseQuery(?Newsletter $newsletter = null): Builder

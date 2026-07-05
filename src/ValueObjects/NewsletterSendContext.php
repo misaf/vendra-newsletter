@@ -12,9 +12,9 @@ use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 class NewsletterSendContext
 {
     /**
-     * @param Collection<int, Newsletter> $newsletters
-     * @param Collection<int, NewsletterSubscriber> $subscribers
-     * @param Collection<int, NewsletterPost> $posts
+     * @param  Collection<int, Newsletter>  $newsletters
+     * @param  Collection<int, NewsletterSubscriber>  $subscribers
+     * @param  Collection<int, NewsletterPost>  $posts
      */
     public function __construct(
         public readonly Collection $newsletters,

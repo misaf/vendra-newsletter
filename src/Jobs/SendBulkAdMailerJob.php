@@ -40,10 +40,6 @@ final class SendBulkAdMailerJob implements ShouldQueue
             });
     }
 
-    /**
-     * @param Collection $users
-     * @return void
-     */
     private function processChunk(Collection $users): void
     {
         $jobs = $users->map(

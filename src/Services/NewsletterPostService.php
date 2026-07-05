@@ -36,7 +36,6 @@ final class NewsletterPostService
     /**
      * Get base query for newsletter posts
      *
-     * @param Newsletter|null $newsletter
      * @return Builder<NewsletterPost>
      */
     private function getBaseQuery(?Newsletter $newsletter = null): Builder

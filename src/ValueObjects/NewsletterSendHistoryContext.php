@@ -11,7 +11,7 @@ use Misaf\VendraNewsletter\Models\NewsletterSendHistorySubscriber;
 final class NewsletterSendHistoryContext extends NewsletterSendContext
 {
     /**
-     * @param Collection<int, NewsletterSendHistory> $sendHistories
+     * @param  Collection<int, NewsletterSendHistory>  $sendHistories
      */
     public static function fromSendHistories(Collection $sendHistories, bool $isDryRun = false): self
     {
@@ -19,7 +19,7 @@ final class NewsletterSendHistoryContext extends NewsletterSendContext
         $sendHistories->load([
             'newsletter.newsletterSubscribedUsers',
             'newsletter.newsletterPosts' => fn($query) => $query->ready(),
-            'newsletterPosts'
+            'newsletterPosts',
         ]);
 
         $newsletters = $sendHistories
@@ -44,7 +44,7 @@ final class NewsletterSendHistoryContext extends NewsletterSendContext
     }
 
     /**
-     * @param Collection<int, NewsletterSendHistorySubscriber> $historySubscribers
+     * @param  Collection<int, NewsletterSendHistorySubscriber>  $historySubscribers
      */
     public static function fromSendHistorySubscribers(Collection $historySubscribers, bool $isDryRun = false): self
     {
@@ -53,7 +53,7 @@ final class NewsletterSendHistoryContext extends NewsletterSendContext
             'newsletterSendHistory.newsletter.newsletterSubscribedUsers',
             'newsletterSendHistory.newsletter.newsletterPosts' => fn($query) => $query->ready(),
             'newsletterSendHistory.newsletterPosts',
-            'newsletterSubscriber'
+            'newsletterSubscriber',
         ]);
 
         $newsletters = $historySubscribers

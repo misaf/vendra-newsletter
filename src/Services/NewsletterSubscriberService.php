@@ -36,7 +36,6 @@ final class NewsletterSubscriberService
     /**
      * Get base query for newsletter subscribers
      *
-     * @param Newsletter|null $newsletter
      * @return Builder<NewsletterSubscriber>
      */
     private function getBaseQuery(?Newsletter $newsletter = null): Builder

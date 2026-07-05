@@ -16,9 +16,7 @@ final class CreateSendHistoryAction
     /**
      * Create a new newsletter send history record
      *
-     * @param Newsletter $newsletter
-     * @param Collection<int, NewsletterPost> $newsletterPosts
-     * @return NewsletterSendHistory
+     * @param  Collection<int, NewsletterPost>  $newsletterPosts
      */
     public function execute(Newsletter $newsletter, Collection $newsletterPosts): NewsletterSendHistory
     {

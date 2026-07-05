@@ -48,4 +48,4 @@ final class NewsletterSubscriberObserver implements ShouldHandleEventsAfterCommi
             $this->subscriberService
         );
     }
-};
+}

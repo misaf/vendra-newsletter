@@ -29,10 +29,10 @@ final class NewsletterSendResult
     public function toArray(): array
     {
         return [
-            'queued'    => $this->queuedCount,
-            'dry_run'   => $this->isDryRun,
-            'message'   => $this->message,
-            'metadata'  => $this->metadata,
+            'queued'   => $this->queuedCount,
+            'dry_run'  => $this->isDryRun,
+            'message'  => $this->message,
+            'metadata' => $this->metadata,
         ];
     }
 }

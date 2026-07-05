@@ -59,7 +59,7 @@ final class NewsletterSendHistorySubscriber extends Model
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]
@@ -69,7 +69,7 @@ final class NewsletterSendHistorySubscriber extends Model
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]
@@ -79,7 +79,7 @@ final class NewsletterSendHistorySubscriber extends Model
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]

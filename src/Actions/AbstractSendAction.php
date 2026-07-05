@@ -24,9 +24,8 @@ abstract class AbstractSendAction
     /**
      * Execute the send action
      *
-     * @param Collection $entities
-     * @param bool $isDryRun
      * @return array<string, mixed>
+     *
      * @throws NewsletterSendException
      */
     public function execute(Collection $entities, bool $isDryRun = false): array
@@ -68,18 +67,12 @@ abstract class AbstractSendAction
 
     /**
      * Build the send context from entities
-     *
-     * @param Collection $entities
-     * @param bool $isDryRun
-     * @return NewsletterSendContext
      */
     abstract protected function buildContext(Collection $entities, bool $isDryRun): NewsletterSendContext;
 
     /**
      * Dispatch jobs for sending
      *
-     * @param NewsletterSendContext $context
-     * @param Collection $entities
      * @throws NewsletterSendException
      */
     abstract protected function dispatch(NewsletterSendContext $context, Collection $entities): void;
@@ -89,7 +82,6 @@ abstract class AbstractSendAction
     /**
      * Validate entities before processing
      *
-     * @param Collection $entities
      * @throws NewsletterSendException
      */
     protected function validateEntities(Collection $entities): void
@@ -123,7 +115,6 @@ abstract class AbstractSendAction
     /**
      * Handle dry run execution
      *
-     * @param NewsletterSendContext $context
      * @return array<string, mixed>
      */
     protected function handleDryRun(NewsletterSendContext $context): array
@@ -169,8 +160,6 @@ abstract class AbstractSendAction
     /**
      * Dispatch a single job with error handling
      *
-     * @param callable $jobCreator
-     * @param array $logContext
      * @throws NewsletterSendException
      */
     protected function dispatchJob(callable $jobCreator, array $logContext): void

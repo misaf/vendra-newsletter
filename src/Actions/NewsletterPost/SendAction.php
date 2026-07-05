@@ -12,21 +12,21 @@ use Misaf\VendraNewsletter\ValueObjects\NewsletterSendContext;
 final class SendAction extends AbstractSendAction
 {
     /**
-     * @param Collection<int, NewsletterPost> $entities
+     * @param  Collection<int, NewsletterPost>  $entities
      */
     protected function buildContext(Collection $entities, bool $isDryRun): NewsletterSendContext
     {
         // Use optimized collection with eager loading
         $entities->load([
             'newsletter.newsletterSubscribedUsers',
-            'newsletter.newsletterPosts' => fn($query) => $query->ready()
+            'newsletter.newsletterPosts' => fn($query) => $query->ready(),
         ]);
 
         return NewsletterSendContext::fromPosts($entities, $isDryRun);
     }
 
     /**
-     * @param Collection<int, NewsletterPost> $entities
+     * @param  Collection<int, NewsletterPost>  $entities
      */
     protected function dispatch(NewsletterSendContext $context, Collection $entities): void
     {

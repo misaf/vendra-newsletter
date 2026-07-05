@@ -13,6 +13,7 @@ use function Laravel\Prompts\search;
 use Misaf\VendraNewsletter\Actions\Newsletter\SendWithPostAction;
 use Misaf\VendraNewsletter\Models\Newsletter;
 use Misaf\VendraNewsletter\Models\NewsletterPost;
+
 use Misaf\VendraTenant\Models\Tenant;
 
 final class SendCommand extends Command implements PromptsForMissingInput
@@ -65,6 +66,7 @@ final class SendCommand extends Command implements PromptsForMissingInput
 
         if (app()->isDownForMaintenance() && ! $isDryRun) {
             $this->warn('Application is in maintenance mode. Command aborted.');
+
             return self::FAILURE;
         }
 

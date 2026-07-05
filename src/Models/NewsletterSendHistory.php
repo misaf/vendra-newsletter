@@ -48,7 +48,7 @@ final class NewsletterSendHistory extends Model
     /** @use HasFactory<NewsletterSendHistoryFactory> */
     use HasFactory;
 
-    /** @var bool $timestamps */
+    /** @var bool */
     public $timestamps = false;
 
     /**
@@ -57,20 +57,20 @@ final class NewsletterSendHistory extends Model
     protected function casts(): array
     {
         return [
-            'id'                  => 'integer',
-            'newsletter_id'       => 'integer',
-            'token'               => 'string',
-            'status'              => NewsletterSendHistoryStatusEnum::class,
-            'total_subscribers'   => 'integer',
-            'sent_count'          => 'integer',
-            'failed_count'        => 'integer',
-            'started_at'          => 'datetime',
-            'completed_at'        => 'datetime',
+            'id'                => 'integer',
+            'newsletter_id'     => 'integer',
+            'token'             => 'string',
+            'status'            => NewsletterSendHistoryStatusEnum::class,
+            'total_subscribers' => 'integer',
+            'sent_count'        => 'integer',
+            'failed_count'      => 'integer',
+            'started_at'        => 'datetime',
+            'completed_at'      => 'datetime',
         ];
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]
@@ -80,7 +80,7 @@ final class NewsletterSendHistory extends Model
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]
@@ -90,7 +90,7 @@ final class NewsletterSendHistory extends Model
     }
 
     /**
-     * @param Builder<NewsletterSendHistorySubscriber> $query
+     * @param  Builder<NewsletterSendHistorySubscriber>  $query
      * @return Builder<NewsletterSendHistorySubscriber>
      */
     #[Scope]

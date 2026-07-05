@@ -61,8 +61,10 @@ final class Newsletter extends Model
 {
     use BelongsToTenant;
     use HasDefaultActivityLogOptions;
+
     /** @use HasFactory<NewsletterFactory> */
     use HasFactory;
+
     use HasTranslatableSlug;
     use HasTranslations;
     use LogsActivity;
@@ -87,7 +89,7 @@ final class Newsletter extends Model
     }
 
     /**
-     * @param Builder<Newsletter> $query
+     * @param  Builder<Newsletter>  $query
      * @return Builder<Newsletter>
      */
     #[Scope]
@@ -97,7 +99,7 @@ final class Newsletter extends Model
     }
 
     /**
-     * @param Builder<Newsletter> $query
+     * @param  Builder<Newsletter>  $query
      * @return Builder<Newsletter>
      */
     #[Scope]
@@ -107,7 +109,7 @@ final class Newsletter extends Model
     }
 
     /**
-     * @param Builder<Newsletter> $query
+     * @param  Builder<Newsletter>  $query
      * @return Builder<Newsletter>
      */
     #[Scope]
@@ -186,4 +188,4 @@ final class Newsletter extends Model
             ->saveSlugsTo('slug')
             ->preventOverwrite();
     }
-};
+}

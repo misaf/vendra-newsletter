@@ -26,6 +26,7 @@ final class SendNewsletterEmailJob implements ShouldQueue
     use SerializesModels;
 
     public int $timeout;
+
     public int $tries;
 
     public function __construct(

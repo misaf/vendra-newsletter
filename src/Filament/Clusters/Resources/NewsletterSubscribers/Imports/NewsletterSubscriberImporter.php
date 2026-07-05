@@ -89,9 +89,6 @@ final class NewsletterSubscriberImporter extends Importer
         $this->record->newsletters()->sync($newsletterIds);
     }
 
-    /**
-     * @return NewsletterSubscriber
-     */
     public function resolveRecord(): NewsletterSubscriber
     {
         return NewsletterSubscriber::query()
@@ -113,10 +110,6 @@ final class NewsletterSubscriberImporter extends Importer
         ];
     }
 
-    /**
-     * @param Import $import
-     * @return string
-     */
     public static function getCompletedNotificationBody(Import $import): string
     {
         $successfulCount = number_format($import->successful_rows);
@@ -138,25 +131,16 @@ final class NewsletterSubscriberImporter extends Importer
         return $body;
     }
 
-    /**
-     * @return string
-     */
     public function getJobQueue(): string
     {
         return 'imports';
     }
 
-    /**
-     * @return string
-     */
     public function getJobConnection(): string
     {
         return 'redis';
     }
 
-    /**
-     * @return CarbonInterface
-     */
     public function getJobRetryUntil(): CarbonInterface
     {
         return Carbon::now()->addSeconds(30);

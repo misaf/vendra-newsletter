@@ -54,15 +54,13 @@ final class EmailEventListener implements ShouldQueue
     }
 
     /**
-     * @param list<string> $emails
-     * @param Closure $callback
-     * @param string $eventName
-     * @return void
+     * @param  list<string>  $emails
      */
     private function processEmails(array $emails, Closure $callback, string $eventName): void
     {
         if (empty($emails)) {
             logger()->warning("{$eventName} event received without valid email data.");
+
             return;
         }
 
@@ -132,6 +130,7 @@ final class EmailEventListener implements ShouldQueue
 
         if (null === $subscriber) {
             logger()->warning("{$tag}: subscriber not found.", compact('email'));
+
             return;
         }
 

@@ -13,7 +13,7 @@ trait HasCacheClearing
 {
     protected function clearNewsletterCache(
         string $service,
-        bool $clearRelated = false,
+        bool $clearRelated,
         NewsletterService $newsletterService,
         NewsletterPostService $postService,
         NewsletterSubscriberService $subscriberService
