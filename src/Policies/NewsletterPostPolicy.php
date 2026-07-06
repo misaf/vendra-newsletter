@@ -5,66 +5,66 @@ declare(strict_types=1);
 namespace Misaf\VendraNewsletter\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Misaf\VendraNewsletter\Enums\NewsletterPostPolicyEnum;
 use Misaf\VendraNewsletter\Models\NewsletterPost;
-use Misaf\VendraUser\Models\User;
 
 final class NewsletterPostPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user): bool
+    public function create(Authorizable $user): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::CREATE);
+        return $user->can(NewsletterPostPolicyEnum::CREATE->value);
     }
 
-    public function delete(User $user, NewsletterPost $newsletterPost): bool
+    public function delete(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::DELETE);
+        return $user->can(NewsletterPostPolicyEnum::DELETE->value);
     }
 
-    public function deleteAny(User $user): bool
+    public function deleteAny(Authorizable $user): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::DELETE_ANY);
+        return $user->can(NewsletterPostPolicyEnum::DELETE_ANY->value);
     }
 
-    public function forceDelete(User $user, NewsletterPost $newsletterPost): bool
+    public function forceDelete(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::FORCE_DELETE);
+        return $user->can(NewsletterPostPolicyEnum::FORCE_DELETE->value);
     }
 
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(Authorizable $user): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::FORCE_DELETE_ANY);
+        return $user->can(NewsletterPostPolicyEnum::FORCE_DELETE_ANY->value);
     }
 
-    public function replicate(User $user, NewsletterPost $newsletterPost): bool
+    public function replicate(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::REPLICATE);
+        return $user->can(NewsletterPostPolicyEnum::REPLICATE->value);
     }
 
-    public function restore(User $user, NewsletterPost $newsletterPost): bool
+    public function restore(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::RESTORE);
+        return $user->can(NewsletterPostPolicyEnum::RESTORE->value);
     }
 
-    public function restoreAny(User $user): bool
+    public function restoreAny(Authorizable $user): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::RESTORE_ANY);
+        return $user->can(NewsletterPostPolicyEnum::RESTORE_ANY->value);
     }
 
-    public function update(User $user, NewsletterPost $newsletterPost): bool
+    public function update(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::UPDATE);
+        return $user->can(NewsletterPostPolicyEnum::UPDATE->value);
     }
 
-    public function view(User $user, NewsletterPost $newsletterPost): bool
+    public function view(Authorizable $user, NewsletterPost $newsletterPost): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::VIEW);
+        return $user->can(NewsletterPostPolicyEnum::VIEW->value);
     }
 
-    public function viewAny(User $user): bool
+    public function viewAny(Authorizable $user): bool
     {
-        return $user->can(NewsletterPostPolicyEnum::VIEW_ANY);
+        return $user->can(NewsletterPostPolicyEnum::VIEW_ANY->value);
     }
 }
