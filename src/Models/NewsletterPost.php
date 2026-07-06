@@ -15,12 +15,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterPostFactory;
 use Misaf\VendraNewsletter\Enums\NewsletterPostStatusEnum;
 use Misaf\VendraNewsletter\Observers\NewsletterPostObserver;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Misaf\VendraSupport\Contracts\ShouldLogActivity;
 use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
@@ -42,22 +40,18 @@ use Spatie\Translatable\HasTranslations;
  * @method bool isReady()
  * @method BelongsTo<Newsletter, $this> newsletter()
  * @method HasMany<NewsletterSendHistory, $this> newsletterSendHistories()
- * @method LogOptions getActivitylogOptions()
  * @method SlugOptions getSlugOptions()
  */
 #[Fillable(['newsletter_id', 'name', 'description', 'slug', 'status'])]
 #[ObservedBy([NewsletterPostObserver::class])]
 #[UseFactory(NewsletterPostFactory::class)]
-final class NewsletterPost extends Model
+final class NewsletterPost extends Model implements ShouldLogActivity
 {
-    use HasDefaultActivityLogOptions;
-
     /** @use HasFactory<NewsletterPostFactory> */
     use HasFactory;
 
     use HasTranslatableSlug;
     use HasTranslations;
-    use LogsActivity;
     use SoftDeletes;
 
     public array $translatable = ['name', 'description', 'slug'];

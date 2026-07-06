@@ -17,12 +17,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterFactory;
 use Misaf\VendraNewsletter\Observers\NewsletterObserver;
+use Misaf\VendraSupport\Contracts\ShouldLogActivity;
 use Misaf\VendraSupport\Traits\BelongsToTenant;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
@@ -50,24 +48,21 @@ use Spatie\Translatable\HasTranslations;
  * @method HasMany<NewsletterSendHistory, $this> newsletterSendHistories()
  * @method HasManyThrough<NewsletterSendHistoryPost, NewsletterSendHistory, $this> newsletterSendHistoryPosts()
  * @method HasManyThrough<NewsletterSendHistorySubscriber, NewsletterSendHistory, $this> newsletterSendHistorySubscribers()
- * @method LogOptions getActivitylogOptions()
  * @method SlugOptions getSlugOptions()
  */
 #[Fillable(['name', 'description', 'slug', 'scheduled_at', 'status'])]
 #[Hidden(['tenant_id'])]
 #[ObservedBy([NewsletterObserver::class])]
 #[UseFactory(NewsletterFactory::class)]
-final class Newsletter extends Model
+final class Newsletter extends Model implements ShouldLogActivity
 {
     use BelongsToTenant;
-    use HasDefaultActivityLogOptions;
 
     /** @use HasFactory<NewsletterFactory> */
     use HasFactory;
 
     use HasTranslatableSlug;
     use HasTranslations;
-    use LogsActivity;
     use SoftDeletes;
 
     public array $translatable = ['name', 'description', 'slug'];

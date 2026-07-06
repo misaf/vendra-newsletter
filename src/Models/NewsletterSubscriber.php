@@ -16,11 +16,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraNewsletter\Database\Factories\NewsletterSubscriberFactory;
 use Misaf\VendraNewsletter\Observers\NewsletterSubscriberObserver;
+use Misaf\VendraSupport\Contracts\ShouldLogActivity;
 use Misaf\VendraUser\Models\User;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Tags\HasTags;
 
 /**
@@ -39,15 +38,12 @@ use Spatie\Tags\HasTags;
 #[Fillable(['user_id', 'email'])]
 #[ObservedBy([NewsletterSubscriberObserver::class])]
 #[UseFactory(NewsletterSubscriberFactory::class)]
-final class NewsletterSubscriber extends Model
+final class NewsletterSubscriber extends Model implements ShouldLogActivity
 {
-    use HasDefaultActivityLogOptions;
-
     /** @use HasFactory<NewsletterSubscriberFactory> */
     use HasFactory;
 
     use HasTags;
-    use LogsActivity;
     use SoftDeletes;
 
     /**
