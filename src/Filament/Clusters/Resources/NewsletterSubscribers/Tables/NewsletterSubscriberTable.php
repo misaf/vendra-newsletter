@@ -60,7 +60,7 @@ final class NewsletterSubscriberTable
 
                 SpatieTagsColumn::make('tags')
                     // ->action(AddTagAction::make())
-                    ->label(__('tag::navigation.tag'))
+                    ->label(__('vendra-tagger::navigation.tag'))
                     ->toggleable(),
 
                 TextColumn::make('created_at')
@@ -95,7 +95,7 @@ final class NewsletterSubscriberTable
             ])
             ->filters([
                 TernaryFilter::make('user_id')
-                    ->label(__('user::attributes.username'))
+                    ->label(__('vendra-user::attributes.username'))
                     ->nullable()
                     ->queries(
                         true: fn(Builder $query) => $query->whereHas('user'),
@@ -115,7 +115,7 @@ final class NewsletterSubscriberTable
                             ->label(__('vendra-newsletter::attributes.updated_at')),
 
                         RelationshipConstraint::make('tags')
-                            ->label(__('tag::navigation.tag'))
+                            ->label(__('vendra-tagger::navigation.tag'))
                             ->selectable(
                                 IsRelatedToOperator::make()
                                     ->getOptionLabelFromRecordUsing(fn(Tag $record) => $record->getAttributeValue('name'))

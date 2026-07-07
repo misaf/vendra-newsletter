@@ -29,7 +29,7 @@ final class NewsletterSubscriberForm
                     ->rules(['bail', 'email:rfc,strict,spoof,filter,filter_unicode', new EmailValidation(app()->isProduction())]),
 
                 SpatieTagsInput::make('tags')
-                    ->label(__('tag::navigation.tag'))
+                    ->label(__('vendra-tagger::navigation.tag'))
                     ->columnSpan(['lg' => 2]),
             ]);
     }

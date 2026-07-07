@@ -29,11 +29,11 @@ final class SendBulkEmailAction extends BulkAction
             ->slideOver()
             ->steps([
                 Step::make('content')
-                    ->label(__('محتوا'))
-                    ->description(__('عنوان و متن محتوا'))
+                    ->label(__('vendra-newsletter::actions.content'))
+                    ->description(__('vendra-newsletter::actions.content_title_and_text'))
                     ->schema([
                         TextInput::make('subject')
-                            ->label(__('عنوان'))
+                            ->label(__('vendra-newsletter::actions.subject'))
                             ->required(),
                         WysiwygEditor::make('description'),
                     ]),

@@ -24,35 +24,35 @@ final class SendCustomBulkEmailAction extends Action
 
         $this->color('gray')
             ->icon('heroicon-o-envelope')
-            ->label(__('ارسال تبلیغات'))
+            ->label(__('vendra-newsletter::actions.send_advertisement'))
             ->size(Size::Small)
             ->steps([
                 Step::make('content')
-                    ->label(__('محتوا'))
-                    ->description(__('عنوان و متن محتوا'))
+                    ->label(__('vendra-newsletter::actions.content'))
+                    ->description(__('vendra-newsletter::actions.content_title_and_text'))
                     ->schema([
                         TextInput::make('subject')
-                            ->label(__('عنوان'))
+                            ->label(__('vendra-newsletter::actions.subject'))
                             ->required(),
 
                         TextInput::make('description'),
 
                         Fieldset::make('limitations')
-                            ->label(__('اعمال محدودیت'))
+                            ->label(__('vendra-newsletter::actions.apply_limit'))
                             ->schema([
                                 TextInput::make('count')
-                                    ->label(__('تعداد'))
+                                    ->label(__('vendra-newsletter::actions.count'))
                                     ->numeric()
                                     ->columnSpanFull()
                                     ->extraAttributes(['dir' => 'ltr']),
 
                                 TextInput::make('from_record')
-                                    ->label(__('از رکورد'))
+                                    ->label(__('vendra-newsletter::actions.from_record'))
                                     ->numeric()
                                     ->extraAttributes(['dir' => 'ltr']),
 
                                 TextInput::make('to_record')
-                                    ->label(__('تا رکورد'))
+                                    ->label(__('vendra-newsletter::actions.to_record'))
                                     ->numeric()
                                     ->extraAttributes(['dir' => 'ltr']),
                             ]),

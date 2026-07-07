@@ -57,7 +57,7 @@ final class NewsletterPostForm
                 TextInput::make('slug')
                     ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.slug'))
                     ->columnSpan(['lg' => 1])
-                    ->helperText(__('شناسه یکتای URL, نیازی به وارد کردن این قسمت نمی باشد به صورت خودکار بعد از وارد کردن فیلد نام پر می گردد.'))
+                    ->helperText(__('vendra-newsletter::attributes.slug_helper_text'))
                     ->label(__('vendra-newsletter::attributes.slug'))
                     ->required()
                     ->unique(modifyRuleUsing: fn(Unique $rule) => $rule->withoutTrashed()),
