@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Filament\Clusters\Resources\NewsletterSubscribers\Actions;
 
-use App\Jobs\SendCustomBulkAdMailerJob;
 use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Wizard\Step;
 use Filament\Support\Enums\Size;
+use Misaf\VendraNewsletter\Jobs\SendCustomBulkAdMailerJob;
 
 final class SendCustomBulkEmailAction extends Action
 {

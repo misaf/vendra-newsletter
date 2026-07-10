@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace Misaf\VendraNewsletter\Jobs;
 
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Queueable;
@@ -14,6 +14,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
+use Misaf\VendraNewsletter\Services\NewsletterSubscriberService;
 use Throwable;
 
 final class SendCustomBulkAdMailerJob implements ShouldQueue

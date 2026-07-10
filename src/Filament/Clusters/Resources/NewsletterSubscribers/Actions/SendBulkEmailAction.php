@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Misaf\VendraNewsletter\Filament\Clusters\Resources\NewsletterSubscribers\Actions;
 
 use App\Forms\Components\WysiwygEditor;
-use App\Jobs\SendAdMailerJob;
 use Filament\Actions\BulkAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Wizard\Step;
 use Illuminate\Database\Eloquent\Collection;
+use Misaf\VendraNewsletter\Jobs\SendAdMailerJob;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
 
 final class SendBulkEmailAction extends BulkAction

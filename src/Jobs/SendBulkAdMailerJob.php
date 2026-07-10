@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace Misaf\VendraNewsletter\Jobs;
 
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Queueable;

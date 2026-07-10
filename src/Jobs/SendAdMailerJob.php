@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace Misaf\VendraNewsletter\Jobs;
 
-use App\Jobs\Middleware\RateLimited;
-use App\Mail\BulkAdMailer;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,6 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Stringable;
+use Misaf\VendraNewsletter\Mail\BulkAdMailer;
 use Throwable;
 
 final class SendAdMailerJob implements ShouldQueue
