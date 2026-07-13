@@ -1,6 +1,5 @@
 {
     "name": "misaf/vendra-newsletter",
-    "version": "0.0.7",
     "keywords": [
         "laravel",
         "filamentphp",
@@ -61,14 +60,14 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Misaf\\VendraNewsletter\\Providers\\NewsletterServiceProvider",
                 "Misaf\\VendraNewsletter\\Providers\\NewsletterDeferredServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "13.x-dev"
         }
     },
     "scripts": {

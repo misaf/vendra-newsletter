@@ -4,7 +4,7 @@ The `misaf/vendra-newsletter` package owns newsletters, subscribers, subscriptio
 
 ### Standards
 
-- Keep newsletter domain code inside `app-modules/vendra-newsletter` using the `Misaf\VendraNewsletter` namespace.
+- Keep newsletter domain code inside `packages/vendra-newsletter` using the `Misaf\VendraNewsletter` namespace.
 - Use this package for models, migrations, factories, seeders, policies, permission enums, observers, Filament resources, translations, config, and package bootstrapping.
 - Follow existing model conventions where they apply: tenant ownership, translated `name` / `description` / `slug`, soft deletes, sortable `position`, media collections, factories, and typed relationships.
 - Tenant awareness is owned by `misaf/vendra-support` via the bound `TenantResolver`; consume it through `Misaf\VendraSupport\Support\TenantAwareness` and `BelongsToTenant`.
