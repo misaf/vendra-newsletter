@@ -3,14 +3,16 @@
 declare(strict_types=1);
 
 return [
-    'newsletter_send_history_failed_count_stats'             => 'Newsletter Failed Send History',
-    'newsletter_send_history_failed_count_stats_description' => 'Overview of failed newsletter sends and error statistics',
-    'newsletter_send_history_sent_count_stats'               => 'Newsletter Successful Send History',
-    'newsletter_send_history_sent_count_stats_description'   => 'Overview of successful newsletter sends and delivery statistics',
-    'newsletter_subscriber_stats'                            => 'Newsletter Subscriber',
-    'newsletter_subscriber_stats_description'                => 'Overview of newsletter subscribers',
-    'subscribed_users'                                       => 'Subscribed Users',
-    'subscribed_users_description'                           => 'Overview of users who have subscribed to the newsletter',
-    'unsubscribed_users'                                     => 'Unsubscribed Users',
-    'unsubscribed_users_description'                         => 'Overview of users who have unsubscribed from the newsletter',
+    'draft_newsletters'                    => 'Draft',
+    'draft_newsletters_description'        => 'Newsletter · Not sent',
+    'scheduled_newsletters'                => 'Scheduled',
+    'scheduled_newsletters_description'    => 'Newsletter · Waiting to send',
+    'sent_newsletters'                     => 'Sent',
+    'sent_newsletters_description'         => 'Newsletter · Delivered',
+    'subscribed_subscribers'               => 'Subscribed',
+    'subscribed_subscribers_description'   => 'Subscribers · Active',
+    'total_subscribers'                    => 'Subscribers',
+    'total_subscribers_description'        => 'Subscribers · All contacts',
+    'unsubscribed_subscribers'             => 'Unsubscribed',
+    'unsubscribed_subscribers_description' => 'Subscribers · Opted out',
 ];

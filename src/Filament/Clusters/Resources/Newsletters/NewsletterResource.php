@@ -4,34 +4,32 @@ declare(strict_types=1);
 
 namespace Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters;
 
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
-use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
-use Misaf\VendraNewsletter\Filament\Clusters\NewslettersCluster;
-use Misaf\VendraNewsletter\Filament\Clusters\Resources\NewsletterPosts\RelationManagers\NewsletterPostRelationManager;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Pages\CreateNewsletter;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Pages\EditNewsletter;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Pages\ListNewsletters;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Pages\ViewNewsletter;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Schemas\NewsletterForm;
 use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Tables\NewsletterTable;
-use Misaf\VendraNewsletter\Filament\Clusters\Resources\NewsletterSendHistories\RelationManagers\NewsletterSendHistoryRelationManager;
-use Misaf\VendraNewsletter\Filament\Clusters\Resources\NewsletterSubscribers\RelationManagers\NewsletterSubscriberRelationManager;
+use Misaf\VendraNewsletter\Filament\Clusters\Resources\Newsletters\Widgets\NewsletterOverviewWidget;
 use Misaf\VendraNewsletter\Models\Newsletter;
+use Misaf\VendraSupport\Filament\Clusters\MarketingCluster;
 
 final class NewsletterResource extends Resource
 {
-    use Translatable;
-
     protected static ?string $model = Newsletter::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedEnvelope;
 
     protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'newsletters';
 
-    protected static ?string $cluster = NewslettersCluster::class;
+    protected static ?string $cluster = MarketingCluster::class;
 
     public static function getBreadcrumb(): string
     {
@@ -58,11 +56,6 @@ final class NewsletterResource extends Resource
         return __('vendra-newsletter::navigation.newsletter');
     }
 
-    public static function getNavigationBadge(): string
-    {
-        return (string) Number::format(app('newsletter-service')->getCount());
-    }
-
     public static function getPages(): array
     {
         return [
@@ -73,12 +66,10 @@ final class NewsletterResource extends Resource
         ];
     }
 
-    public static function getRelations(): array
+    public static function getWidgets(): array
     {
         return [
-            NewsletterPostRelationManager::class,
-            NewsletterSubscriberRelationManager::class,
-            NewsletterSendHistoryRelationManager::class,
+            NewsletterOverviewWidget::class,
         ];
     }
 
