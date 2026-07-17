@@ -12,6 +12,8 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Misaf\VendraNewsletter\Enums\NewsletterStatusEnum;
@@ -25,7 +27,7 @@ final class NewsletterTable
             ->columns([
                 TextColumn::make('row')
                     ->label('#')
-                    ->rowIndex(),
+                    ->rowIndex()->sortable(),
 
                 TextColumn::make('subject')
                     ->alignStart()
@@ -46,7 +48,7 @@ final class NewsletterTable
                     ->label(__('vendra-newsletter::attributes.scheduled_at'))
                     ->placeholder('—')
                     ->toggleable()
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -59,7 +61,7 @@ final class NewsletterTable
                     ->label(__('vendra-newsletter::attributes.sent_at'))
                     ->placeholder('—')
                     ->toggleable()
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -72,7 +74,7 @@ final class NewsletterTable
                     ->label(__('vendra-newsletter::attributes.created_at'))
                     ->sinceTooltip()
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -83,6 +85,11 @@ final class NewsletterTable
                     SelectFilter::make('status')
                         ->label(__('vendra-newsletter::attributes.status'))
                         ->options(NewsletterStatusEnum::class),
+                    QueryBuilder::make()
+                        ->constraints([
+                            DateConstraint::make('scheduled_at')
+                                ->label(__('vendra-newsletter::attributes.scheduled_at')),
+                        ]),
                 ],
                 layout: FiltersLayout::AboveContentCollapsible,
             )
@@ -102,6 +109,6 @@ final class NewsletterTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort(column: 'created_at', direction: 'desc');
+            ->defaultSort(column: 'id', direction: 'desc');
     }
 }

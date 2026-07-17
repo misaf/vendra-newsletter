@@ -13,6 +13,8 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Misaf\VendraNewsletter\Models\NewsletterSubscriber;
@@ -25,7 +27,7 @@ final class NewsletterSubscriberTable
             ->columns([
                 TextColumn::make('row')
                     ->label('#')
-                    ->rowIndex(),
+                    ->rowIndex()->sortable(),
 
                 TextColumn::make('email')
                     ->alignStart()
@@ -53,7 +55,7 @@ final class NewsletterSubscriberTable
                     ->label(__('vendra-newsletter::attributes.subscribed_at'))
                     ->placeholder('—')
                     ->toggleable()
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -67,7 +69,7 @@ final class NewsletterSubscriberTable
                     ->label(__('vendra-newsletter::attributes.unsubscribed_at'))
                     ->placeholder('—')
                     ->toggleable()
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -80,7 +82,7 @@ final class NewsletterSubscriberTable
                     ->label(__('vendra-newsletter::attributes.created_at'))
                     ->sinceTooltip()
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->unless(
+                    ->when(
                         app()->isLocale('fa'),
                         fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                         fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -91,6 +93,11 @@ final class NewsletterSubscriberTable
                     TernaryFilter::make('unsubscribed_at')
                         ->label(__('vendra-newsletter::attributes.status'))
                         ->nullable(),
+                    QueryBuilder::make()
+                        ->constraints([
+                            TextConstraint::make('email')
+                                ->label(__('vendra-newsletter::attributes.email')),
+                        ]),
                 ],
                 layout: FiltersLayout::AboveContentCollapsible,
             )
@@ -108,6 +115,6 @@ final class NewsletterSubscriberTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort(column: 'created_at', direction: 'desc');
+            ->defaultSort(column: 'id', direction: 'desc');
     }
 }
