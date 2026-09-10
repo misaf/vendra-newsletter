@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Arr;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -246,7 +246,7 @@ it('sends scheduled newsletters that are due and leaves future ones untouched', 
     Queue::assertPushed(SendNewsletterBatchJob::class, 1);
 });
 
-it('scopes each tenant\'s scheduled send to its own subscribers across all tenants', function (): void {
+it("scopes each tenant's scheduled send to its own subscribers across all tenants", function (): void {
     Queue::fake();
     forgetCurrentTestTenant();
 
